@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@1"></script>
+
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <!-- Muted autoplay is always allowed. -->
+    <video id="video" controls width="640" height="360" autoplay muted playsinline></video>
+    <select id="video-select" style="width: 250px; height: 40px; font-size: 18px;">
+      <option value="https://storage.googleapis.com/shaka-demo-assets/bbb-dark-truths-hls/hls.m3u8">hls</option>
+      <option value="https://storage.googleapis.com/shaka-demo-assets/angel-one/dash.mpd">dash</option>
+      <option value="https://media.w3.org/2010/05/sintel/trailer.mp4">mp4</option>
+    </select>
+  </body>
+</html>
