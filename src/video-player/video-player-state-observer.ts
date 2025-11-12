@@ -6,16 +6,20 @@ export class VideoPlayerObserver {
   private eventHandlers: { event: string, handler: () => void }[] = [
     { event: 'loadstart', handler: () => { this.handleEvent(PlayerState.LOADING) } },
     {
-      event: 'progress', handler: () => {
-        if (this.videoElement.paused || this.videoElement.currentTime === 0)
-          this.handleEvent(PlayerState.LOADING)
+      event: 'canplay', handler: () => {
+        if (this.currentState?.state === PlayerState.LOADING)
+          this.handleEvent(PlayerState.READY)
       }
     },
-    { event: 'canplay', handler: () => this.handleEvent(PlayerState.READY) },
     { event: 'playing', handler: () => this.handleEvent(PlayerState.PLAYING) },
     { event: 'pause', handler: () => this.handleEvent(PlayerState.PAUSED) },
     { event: 'seeking', handler: () => this.handleEvent(PlayerState.SEEKING) },
-    { event: 'waiting', handler: () => this.handleEvent(PlayerState.BUFFERING) },
+    {
+      event: 'waiting', handler: () => {
+        if (![PlayerState.LOADING, PlayerState.IDLE].includes(this.currentState!.state))
+          this.handleEvent(PlayerState.BUFFERING)
+      }
+    },
     { event: 'ended', handler: () => this.handleEvent(PlayerState.ENDED) },
   ]
 
